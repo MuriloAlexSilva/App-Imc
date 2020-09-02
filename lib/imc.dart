@@ -12,6 +12,7 @@ class _IMCState extends State<IMC> {
       ScaffoldState>(); //Para salvar o estado do Scaffold e utilizar em outros lugares
   //ex. no metodo abaixo
   var _resultado = "";
+  var _situacao = "";
 
   _onItemTapped(int index) {
     if (index == 0) {
@@ -19,6 +20,7 @@ class _IMCState extends State<IMC> {
       _pesoController.clear(); //Para limpar o console peso
       setState(() {
         _resultado = "";
+        _situacao = "";
       });
     } else if (_alturaController.text.isEmpty || _pesoController.text.isEmpty) {
       //se altura ou peso vazio
@@ -34,12 +36,27 @@ class _IMCState extends State<IMC> {
         setState(() {
           _resultado =
               "Seu IMC é ${imc.toStringAsFixed(2)}"; //Para arredondar o decimal em 2 casas
+          if (imc < 17) {
+            _situacao = "Muito abaixo do peso";
+          } else if ((imc >= 17) && (imc < 18.49)) {
+            _situacao = "Abaixo do peso";
+          } else if ((imc >= 18.50) && (imc < 24.99)) {
+            _situacao = "Peso normal";
+          } else if ((imc >= 25) && (imc < 29.99)) {
+            _situacao = "Acima do peso";
+          } else if ((imc >= 30) && (imc < 34.99)) {
+            _situacao = "Obesidade I";
+          } else if ((imc >= 35) && (imc < 39.99)) {
+            _situacao = "Obesidade II (Severa)";
+          } else {
+            _situacao = "Obesidade III ( Mórbida)";
+          }
         });
       } catch (e) {
         key.currentState.showSnackBar(SnackBar(
             content:
                 Text("Altura ou peso foram informados em formato inválido. ")));
-        //Sna
+        //Snackbar
 
       }
     }
@@ -110,6 +127,10 @@ class _IMCState extends State<IMC> {
               "$_resultado",
               style: TextStyle(fontSize: 20),
             ),
+            Text(
+              "$_situacao",
+              style: TextStyle(fontSize: 20),
+            )
           ],
         ),
       ),
