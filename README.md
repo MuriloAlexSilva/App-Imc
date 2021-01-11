@@ -2,9 +2,8 @@
 
 Projeto desenvolvido para realização de calculo de IMC.
 
-<p>
-<img src="/images/gitTela.gif" width="300">
-
+<p align ="center">
+<img src="/images/gifTela.gif">
 </p>
 
 
